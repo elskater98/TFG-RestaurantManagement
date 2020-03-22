@@ -29,12 +29,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class User implements UserDetails {
 
     //Constructor
-    public User(){
+    public User() {
     }
 
-    public User(){
-
+    public User(String username, @NotBlank @Email String email,
+                @NotBlank @Length(min = 4,max = 256) String password, @NotNull Role role) {
+        this.username=username;
+        this.email=email;
+        this.password=password;
+        encodePassword();
+        this.role=role;
     }
+
 
     //Username
     @Id
