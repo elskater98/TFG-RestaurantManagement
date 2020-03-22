@@ -23,4 +23,16 @@ public class BasicUserDetailsService implements UserDetailsService {
         .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
   }
 
+  @Transactional
+  public  User registerUser(User user) throws BasicException{
+    if(userRepository.findByUsername(user.getUsername())!=null){
+      throw new BasicException("Username "+user.getUsername()+" already exists");
+    }else if(userRepository.findByEmail(user.getEmail())!=null){
+      throw new BasicException("Email"+user.getEmail()+"already exists");
+    }
+    user.encodePassword();
+    return userRepository.save(user);
+
+  }
+
 }
