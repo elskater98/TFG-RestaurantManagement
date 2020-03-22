@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Component
 public class BasicUserDetailsService implements UserDetailsService {
@@ -29,10 +30,16 @@ public class BasicUserDetailsService implements UserDetailsService {
       throw new BasicException("Username "+user.getUsername()+" already exists");
     }else if(userRepository.findByEmail(user.getEmail())!=null){
       throw new BasicException("Email"+user.getEmail()+"already exists");
+    }else if(user.role == null){
+      throw new BasicException("Rol mustn't");
     }
     user.encodePassword();
     return userRepository.save(user);
+  }
 
+  @Transactional
+  public List<User> getUsersByRole(String role){
+    return userRepository.findUserByRole(role);
   }
 
 }

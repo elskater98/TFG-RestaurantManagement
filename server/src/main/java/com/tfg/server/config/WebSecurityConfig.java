@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${allowed-origins}")
     String[] allowedOrigins;
@@ -26,8 +28,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+
                     .antMatchers(HttpMethod.GET, "/identity").authenticated()
-                    .antMatchers(HttpMethod.POST, "/users").anonymous()
+                    .antMatchers(HttpMethod.GET, "/users").anonymous()
+                    .antMatchers(HttpMethod.POST, "/register").permitAll()
+                    .antMatchers(HttpMethod.POST, "/ex").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic().realmName("Server")

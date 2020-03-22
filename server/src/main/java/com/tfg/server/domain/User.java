@@ -3,6 +3,7 @@ package com.tfg.server.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -12,9 +13,9 @@ import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Value;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,7 +34,7 @@ public class User implements UserDetails {
     }
 
     public User(String username, @NotBlank @Email String email,
-                @NotBlank @Length(min = 4,max = 256) String password, @NotNull Role role) {
+                @NotBlank @Length(min = 4,max = 256) String password, @NotNull String role) {
         this.username=username;
         this.email=email;
         this.password=password;
@@ -88,31 +89,22 @@ public class User implements UserDetails {
     }
 
 
-    //Roles & Authentication
-    public enum Role{
-        Admin,
-        Cambrer,
-        Cuiner,
-        Bartender,
-        Propietari,
-    }
-
     @NotNull(message = "Role must not be null.")
-    public Role role;
+    private String role = "Cambrer";
 
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         switch (this.role){
-            case Admin:
+            case "Admin":
                 return AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN");
-            case Cuiner:
+            case "Cuiner":
                 return AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_CUINER");
-            case Cambrer:
+            case "Cambrer":
                 return AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_CAMBRER");
-            case Bartender:
+            case "Bartender":
                 return AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_BARTENDER");
-            case Propietari:
+            case "Propietari":
                 return AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_PROPIETARI");
         }
         return AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
