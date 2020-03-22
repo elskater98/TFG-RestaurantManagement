@@ -32,7 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(HttpMethod.GET, "/identity").authenticated()
                     .antMatchers(HttpMethod.GET, "/users").anonymous()
                     .antMatchers(HttpMethod.POST, "/register").permitAll()
-                    .antMatchers(HttpMethod.POST, "/ex").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic().realmName("Server")

@@ -32,6 +32,6 @@ public class IdentityController {
   @ResponseBody
   public String registerUser(@RequestBody User user) throws BasicException{
     User registeredUser = userService.registerUser(user);
-    return registeredUser.getUsername()+"has been created succesfully";
+    return registeredUser.getUsername()+" has been created successfully";
   }
 }

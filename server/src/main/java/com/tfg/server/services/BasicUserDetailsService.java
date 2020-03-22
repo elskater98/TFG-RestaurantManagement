@@ -30,8 +30,8 @@ public class BasicUserDetailsService implements UserDetailsService {
       throw new BasicException("Username "+user.getUsername()+" already exists");
     }else if(userRepository.findByEmail(user.getEmail())!=null){
       throw new BasicException("Email"+user.getEmail()+"already exists");
-    }else if(user.role == null){
-      throw new BasicException("Rol mustn't");
+    }else if(user.getRole() == null){
+      throw new BasicException("Rol mustn't null");
     }
     user.encodePassword();
     return userRepository.save(user);
