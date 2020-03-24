@@ -32,7 +32,10 @@ public class BasicUserDetailsService implements UserDetailsService {
       throw new BasicException("Email"+user.getEmail()+"already exists");
     }else if(user.getRole() == null){
       throw new BasicException("Rol mustn't null");
+    }else if( !user.checkRole(user.getRole())){
+      throw new BasicException("Not available role");
     }
+
     user.encodePassword();
     return userRepository.save(user);
   }

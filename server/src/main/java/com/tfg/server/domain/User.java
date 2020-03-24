@@ -92,6 +92,18 @@ public class User implements UserDetails {
     @NotNull(message = "Role must not be null.")
     private String role = "Cambrer";
 
+    public boolean checkRole(String role){
+        switch (role){
+            case "Admin":
+            case "Propietari":
+            case "Cuiner":
+            case "Cambrer":
+            case "Bartender":
+                return true;
+        }
+        return false;
+    }
+
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
