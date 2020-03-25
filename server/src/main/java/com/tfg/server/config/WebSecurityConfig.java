@@ -28,10 +28,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/users").permitAll()
+                .antMatchers(HttpMethod.GET, "/users/*").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/users/*").hasAnyRole("ADMIN","PROPIETARI")
+                .antMatchers(HttpMethod.DELETE, "/users/*").hasAnyRole("ADMIN","PROPIETARI")
 
-                    .antMatchers(HttpMethod.GET, "/identity").authenticated()
-                    .antMatchers(HttpMethod.GET, "/users").permitAll()
-                    .antMatchers(HttpMethod.POST, "/register").permitAll()
+                .antMatchers(HttpMethod.GET, "/identity").authenticated()
+                .antMatchers(HttpMethod.POST, "/register").permitAll()
+
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic().realmName("Server")

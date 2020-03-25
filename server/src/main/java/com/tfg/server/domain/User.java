@@ -3,19 +3,15 @@ package com.tfg.server.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,16 +29,6 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, @NotBlank @Email String email,
-                @NotBlank @Length(min = 4,max = 256) String password, @NotNull String role) {
-        this.username=username;
-        this.email=email;
-        this.password=password;
-        encodePassword();
-        this.role=role;
-    }
-
-
     //Username
     @Id
     private String username;
@@ -57,6 +43,16 @@ public class User implements UserDetails {
     @Email
     @Column(name="email",unique = true)
     private String email;
+
+    // Name and Surname
+
+    @NotBlank
+    @Length(max = 256, message = "Password length is outnumberd 256 characters.")
+    private String name;
+
+    @NotBlank
+    @Length(max = 256, message = "Password length is outnumberd 256 characters.")
+    private String surname;
 
 
     //Password
@@ -105,7 +101,6 @@ public class User implements UserDetails {
     }
 
     @Override
-    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         switch (this.role){
             case "Admin":

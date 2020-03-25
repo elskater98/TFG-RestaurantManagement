@@ -34,6 +34,8 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
       user.setPassword(defaultPassword);
       user.encodePassword();
       user.setRole("Admin");
+      user.setName("Admin");
+      user.setSurname("Admin");
       userRepository.save(user);
     }
   }
