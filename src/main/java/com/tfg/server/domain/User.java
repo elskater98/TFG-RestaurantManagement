@@ -47,11 +47,11 @@ public class User implements UserDetails {
     // Name and Surname
 
     @NotBlank
-    @Length(max = 256, message = "Password length is outnumberd 256 characters.")
+    @Length(max = 128, message = "Name length is outnumberd 256 characters.")
     private String name;
 
     @NotBlank
-    @Length(max = 256, message = "Password length is outnumberd 256 characters.")
+    @Length(max = 128, message = "Surname length is outnumberd 256 characters.")
     private String surname;
 
 

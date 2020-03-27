@@ -27,13 +27,13 @@ public class BasicUserDetailsService implements UserDetailsService {
   @Transactional
   public  User registerUser(User user) throws BasicException{
     if(userRepository.findByUsername(user.getUsername())!=null){
-      throw new BasicException("Username "+user.getUsername()+" already exists");
+      throw new BasicException("Username "+user.getUsername()+" already exists.");
     }else if(userRepository.findByEmail(user.getEmail())!=null){
-      throw new BasicException("Email"+user.getEmail()+"already exists");
+      throw new BasicException("Email"+user.getEmail()+"already exists.");
     }else if(user.getRole() == null){
       throw new BasicException("Rol mustn't null");
     }else if( !user.checkRole(user.getRole())){
-      throw new BasicException("Not available role");
+      throw new BasicException(user.getRole()+"is not available role.");
     }
 
     user.encodePassword();
