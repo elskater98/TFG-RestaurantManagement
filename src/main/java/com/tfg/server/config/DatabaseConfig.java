@@ -1,32 +1,20 @@
 package com.tfg.server.config;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import com.zaxxer.hikari.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.*;
+import javax.sql.DataSource;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-/**
- * Created by http://rhizomik.net/~roberto/
- */
 @Configuration
-@Profile("heroku")
 public class DatabaseConfig {
+
+    @Value("${spring.datasource.url}")
+    private String dbUrl;
+
     @Bean
-    public DataSource dataSource() throws URISyntaxException {
-        URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-
-        DataSource basicDataSource = new DataSource();
-        basicDataSource.setUrl(dbUrl);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
-
-        return basicDataSource;
+    public DataSource dataSource() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(dbUrl);
+        return new HikariDataSource(config);
     }
 }
