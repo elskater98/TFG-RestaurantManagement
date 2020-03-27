@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tfg.server</groupId>
-	<artifactId>RestaurantManagement-TFG Francesc Contreras</artifactId>
+	<artifactId>tfgrestaurantmanagementserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>RestaurantManagement</name>
 	<description>RestaurantManagement API</description>
