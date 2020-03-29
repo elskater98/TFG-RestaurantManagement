@@ -36,6 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/identity").authenticated()
                 .antMatchers(HttpMethod.POST, "/register").permitAll()
 
+                .antMatchers(HttpMethod.GET, "/getUsersByRole").permitAll()
+                .antMatchers(HttpMethod.GET, "/getAllRoles").permitAll()
+
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic().realmName("Server")

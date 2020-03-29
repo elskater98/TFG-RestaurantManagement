@@ -1,6 +1,7 @@
 package com.tfg.server.services;
 
 import com.tfg.server.domain.User;
+import com.tfg.server.exception.BadRequestException;
 import com.tfg.server.exception.BasicException;
 import com.tfg.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,15 @@ public class BasicUserDetailsService implements UserDetailsService {
   }
 
   @Transactional
-  public List<User> getUsersByRole(String role){
-    return userRepository.findUserByRole(role);
+  public List<User> getUsersByRole(String role) throws BasicException {
+    switch (role){
+      case "Admin":
+      case "Propietari":
+      case "Cuiner":
+      case "Cambrer":
+      case "Bartender":
+        return userRepository.findByRole(role);
+    }
+    throw new BasicException(role +"is not available role.");
   }
-
 }
