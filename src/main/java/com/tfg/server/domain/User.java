@@ -19,7 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
-@Table(name = "RestaurantManagementAPI") //Avoid collision with system table User in Postgres
+@Table(name = "User") //Avoid collision with system table User in Postgres
 @Data
 //@EqualsAndHashCode(callSuper = true)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
