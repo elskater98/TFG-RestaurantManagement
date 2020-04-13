@@ -39,6 +39,10 @@ public class Reserva {
     @NotNull
     private boolean inside=true;
 
+    public boolean getInside(){
+        return this.inside;
+    }
+
     @Length(max = 32)
     String mobile;
 
