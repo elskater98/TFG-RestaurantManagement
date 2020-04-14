@@ -32,6 +32,9 @@ public class Reserva {
     @NotNull(message = "The number of people may not be empty.")
     private Integer people;
 
+    @NotNull(message = "The number of people may not be empty.")
+    private String subId;
+
     @NotNull
     @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private Date date;
@@ -51,5 +54,22 @@ public class Reserva {
 
     @Length(max = 512)
     String observations;
-    
+
+    public String generateSubId(Reserva reserva){
+        String date = reserva.getDate().toInstant().toString();
+        String [] parts = date.split("T");
+        int hour = Integer.parseInt(parts[1].substring(0,2));
+
+        if(hour >=12 && hour<=16){
+            return parts[0]+"Lunch";
+        }else if(hour>=19 && hour<=23){
+            return parts[0]+"Diner";
+        }
+        return "";
+    }
+
+    public UUID getId() {
+        return this.id;
+    }
+
 }

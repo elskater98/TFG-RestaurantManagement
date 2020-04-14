@@ -10,13 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +35,9 @@ public class ReservaEventHandler {
     @Value("${aforament_outside}")
     int outsite;
 
-    HashMap<String, Integer> totalInsite = new HashMap<String, Integer>();
-    HashMap<String, Integer> totalOutsite = new HashMap<String, Integer>();
+    int count;
+
+    HashMap<String, ArrayList<Reserva>> totalAforament = new HashMap<String, ArrayList<Reserva>>();
 
     @Autowired
     ReservaRepository reservaRepository;
@@ -41,47 +46,53 @@ public class ReservaEventHandler {
 
     @HandleBeforeCreate
     public void handleReservaPreCreate(Reserva reserva) throws BasicException {
+        String subId = reserva.generateSubId(reserva);
 
-        totalInsite.putIfAbsent(getKeyByReserva(reserva), 0);
-        totalOutsite.putIfAbsent(getKeyByReserva(reserva), 0);
-        if(reserva.getInside()){
-            if(reserva.getPeople()+totalInsite.get(getKeyByReserva(reserva)) > inside){
-                throw new BasicException("Sold out - insite");
-            }
-        }else {
-            if(reserva.getPeople()+totalOutsite.get(getKeyByReserva(reserva)) > outsite){
-                throw new BasicException("Sold out - outsite");
-            }
+        if(!subId.contains("Diner") && !subId.contains("Lunch")){
+            throw new BasicException("The date is not allowed.");
         }
 
-        logger.info("Before creating: {}",reserva.toString());
-    }
-
-    @HandleAfterCreate
-    public void handleReservaPostCreate(Reserva reserva) {
-        int aux;
-
-        if(reserva.getInside()){
-            aux = totalInsite.get(getKeyByReserva(reserva));
-            totalInsite.put(getKeyByReserva(reserva),reserva.getPeople()+aux);
-        }else {
-            aux = totalOutsite.get(getKeyByReserva(reserva));
-            totalOutsite.put(getKeyByReserva(reserva),reserva.getPeople()+aux);
+        count= 0;
+        for (Reserva res:reservaRepository.findBySubIdAndInside(subId,reserva.getInside())) {
+            count+=res.getPeople();
         }
 
-        logger.info("After creating: {}", reserva.toString());
+        if(reserva.getInside() && count+reserva.getPeople()>inside){
+                throw new BadRequestException();
+        }else if(!reserva.getInside() && count+reserva.getPeople()>outsite)  {
+                throw new BadRequestException();
+        }
+
+        reserva.setSubId(subId);
+
+
+        logger.info("Before creating: {}", reserva.toString());
     }
 
-    public String getKeyByReserva(Reserva reserva){
-       String date = reserva.getDate().toInstant().toString();
-       String [] parts = date.split("T");
-       int hour = Integer.parseInt(parts[1].substring(0,2));
+    @HandleBeforeSave
+    public void handleReservaPreSave( Reserva reserva) throws BasicException {
+        String subId = reserva.generateSubId(reserva);
 
-       if(hour >=12 && hour<=16){
-           return parts[0]+"Lunch";
-       }else if(hour>=19 && hour<=23){
-           return parts[0]+"Diner";
-       }
-        return "";
+        if(!subId.contains("Diner") && !subId.contains("Lunch")){
+            throw new BasicException("The date is not allowed.");
+        }
+
+        count=0;
+        for (Reserva res : reservaRepository.findBySubIdAndInside(subId,reserva.getInside())){
+            if(res.getId().equals(reserva.getId())){
+                count-=res.getPeople();
+            }
+            count+=res.getPeople();
+        }
+
+        if(reserva.getInside() && count + reserva.getPeople()>inside){
+            throw new BadRequestException();
+        }else if(!reserva.getInside() && count + reserva.getPeople()>outsite)  {
+            throw new BadRequestException();
+        }
+
+        reserva.setSubId(subId);
+
+        logger.info("Before saving: {}",reserva.toString());
     }
 }

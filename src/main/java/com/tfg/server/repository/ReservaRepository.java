@@ -1,18 +1,15 @@
 package com.tfg.server.repository;
 
 import com.tfg.server.domain.Reserva;
-import com.tfg.server.domain.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public interface ReservaRepository extends PagingAndSortingRepository<Reserva, UUID> {
-
+    Reserva findByClientAndAndDate(String client,Date date);
     List<Reserva> findByClient(String string);
     List<Reserva> findByDate(Date date);
-    List<Reserva> findByInside(Boolean bool);
+    ArrayList<Reserva> findBySubIdAndInside(String str, Boolean bool);
 
 }
