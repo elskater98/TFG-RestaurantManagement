@@ -1,5 +1,6 @@
 package com.tfg.server.config;
 
+import com.tfg.server.domain.Reserva;
 import com.tfg.server.domain.User;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -10,5 +11,6 @@ public class RepositoryConfig extends RepositoryRestConfigurerAdapter {
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(User.class);
+        config.exposeIdsFor(Reserva.class);
     }
 }
