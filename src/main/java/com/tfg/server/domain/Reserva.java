@@ -2,8 +2,10 @@ package com.tfg.server.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.hibernate.cfg.Environment;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -40,6 +42,10 @@ public class Reserva {
     private Date date;
 
     @NotNull
+    private String subDate;
+
+
+    @NotNull
     private boolean inside=true;
 
     public boolean getInside(){
@@ -54,19 +60,6 @@ public class Reserva {
 
     @Length(max = 512)
     String observations;
-
-    public String generateSubId(Reserva reserva){
-        String date = reserva.getDate().toInstant().toString();
-        String [] parts = date.split("T");
-        int hour = Integer.parseInt(parts[1].substring(0,2));
-
-        if(hour >=12 && hour<=16){
-            return parts[0]+"Lunch";
-        }else if(hour>=19 && hour<=23){
-            return parts[0]+"Diner";
-        }
-        return "";
-    }
 
     public UUID getId() {
         return this.id;

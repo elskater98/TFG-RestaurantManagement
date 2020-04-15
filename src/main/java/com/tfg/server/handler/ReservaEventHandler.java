@@ -1,9 +1,11 @@
 package com.tfg.server.handler;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tfg.server.domain.Reserva;
 import com.tfg.server.exception.BadRequestException;
 import com.tfg.server.exception.BasicException;
 import com.tfg.server.repository.ReservaRepository;
+import com.tfg.server.services.ReservaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +44,14 @@ public class ReservaEventHandler {
     @Autowired
     ReservaRepository reservaRepository;
 
+    @Autowired
+    ReservaService reservaService;
+
     final Logger logger = LoggerFactory.getLogger(Reserva.class);
 
     @HandleBeforeCreate
     public void handleReservaPreCreate(Reserva reserva) throws BasicException {
-        String subId = reserva.generateSubId(reserva);
+        String subId = reservaService.generateSubId(reserva.getDate());
 
         if(!subId.contains("Diner") && !subId.contains("Lunch")){
             throw new BasicException("The date is not allowed.");
@@ -62,7 +67,8 @@ public class ReservaEventHandler {
         }else if(!reserva.getInside() && count+reserva.getPeople()>outsite)  {
                 throw new BadRequestException();
         }
-
+        
+        reserva.setSubDate(reserva.getDate().toString());
         reserva.setSubId(subId);
 
 
@@ -71,7 +77,7 @@ public class ReservaEventHandler {
 
     @HandleBeforeSave
     public void handleReservaPreSave( Reserva reserva) throws BasicException {
-        String subId = reserva.generateSubId(reserva);
+        String subId = reservaService.generateSubId(reserva.getDate());
 
         if(!subId.contains("Diner") && !subId.contains("Lunch")){
             throw new BasicException("The date is not allowed.");
@@ -90,7 +96,7 @@ public class ReservaEventHandler {
         }else if(!reserva.getInside() && count + reserva.getPeople()>outsite)  {
             throw new BadRequestException();
         }
-
+        reserva.setSubDate(reserva.getDate().toString());
         reserva.setSubId(subId);
 
         logger.info("Before saving: {}",reserva.toString());

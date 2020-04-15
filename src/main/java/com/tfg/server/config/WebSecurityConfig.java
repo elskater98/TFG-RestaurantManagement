@@ -33,10 +33,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PATCH, "/users/*").hasAnyRole("ADMIN","PROPIETARI")
                 .antMatchers(HttpMethod.DELETE, "/users/*").hasAnyRole("ADMIN","PROPIETARI")
 
+                .antMatchers(HttpMethod.GET,"/reservas").permitAll()
+                .antMatchers(HttpMethod.GET,"/reservas/*").permitAll()
+                .antMatchers(HttpMethod.POST,"/reservas/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER")
+                .antMatchers(HttpMethod.PATCH,"/reservas/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER")
+                .antMatchers(HttpMethod.DELETE,"/reservas/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER")
+
                 .antMatchers(HttpMethod.GET, "/identity").authenticated()
                 .antMatchers(HttpMethod.POST, "/register").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/getUsersByRole").permitAll()
+                .antMatchers(HttpMethod.GET, "/generateSubId").permitAll()
+                .antMatchers(HttpMethod.GET, "/getByDate").permitAll()
+                .antMatchers(HttpMethod.GET, "/getReservaInseteByDate").permitAll()
+                .antMatchers(HttpMethod.GET, "/getReservaOutsiteByDate").permitAll()
                 .antMatchers(HttpMethod.GET, "/getAllRoles").permitAll()
 
                 .anyRequest().permitAll()
