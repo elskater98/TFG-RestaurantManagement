@@ -8,8 +8,8 @@ import java.util.*;
 
 public interface ReservaRepository extends PagingAndSortingRepository<Reserva, UUID> {
 
-    List<Reserva> findBySubDate(String date);
-    List<Reserva> findBySubDateAndInside(String date,Boolean bool);
+    List<Reserva> findByDate(Date date);
+    List<Reserva> findByDateAndInside(Date date,Boolean bool);
 
     List<Reserva> findBySubIdAndInside(String str, Boolean bool);
 

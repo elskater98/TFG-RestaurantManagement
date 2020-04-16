@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -27,30 +28,33 @@ public class ReservaService {
     ReservaRepository reservaRepository;
 
     @Transactional
-    public List<Reserva> findByDate(String date){
-        return reservaRepository.findBySubDate(date);
+    public List<Reserva> findByDate(Date date){
+        return reservaRepository.findByDate(date);
     }
 
     @Transactional
-    public List<Reserva> findByDateAndInside(String date,Boolean bool){
-        return reservaRepository.findBySubDateAndInside(date,bool);
+    public List<Reserva> findByDateAndInside(Date date,Boolean bool){
+        return reservaRepository.findByDateAndInside(date,bool);
     }
 
     @Transactional
-    public String generateSubId(Date date){
-        String [] parts = generateSubDate(date);
-        int hour = Integer.parseInt(parts[1].substring(0,2));
+    public String generateSubId(Date date,String hour){
+        String parts_date = generateSubDate(date);
+        String [] parts_hour = hour.split(":");
 
-        if(hour >=start_lunch && hour<=end_lunch){
-            return parts[0]+" Lunch";
-        }else if(hour>=start_diner && hour<=end_diner){
-            return parts[0]+" Diner";
+        int subHour = Integer.parseInt(parts_hour[0]);
+
+        if(subHour >=start_lunch && subHour<=end_lunch){
+            return parts_date+" Lunch";
+        }else if(subHour>=start_diner && subHour<=end_diner){
+            return parts_date+" Diner";
         }
         return "";
     }
 
     @Transactional
-    public String [] generateSubDate(Date date){
-        return date.toInstant().toString().split("T");
+    public String generateSubDate(Date date){
+        SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");
+        return sdf.format(date);
     }
 }

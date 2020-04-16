@@ -30,7 +30,7 @@ public class Reserva {
     @Length(min = 1, max = 64, message = "Client length is outnumberd 64 characters.")
     private String client;
 
-    @Range(min=1,max = 32)
+    @Range(min=1,max = 64)
     @NotNull(message = "The number of people may not be empty.")
     private Integer people;
 
@@ -38,12 +38,11 @@ public class Reserva {
     private String subId;
 
     @NotNull
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="mm/dd/yyyy")
     private Date date;
 
     @NotNull
-    private String subDate;
-
+    private String hour;
 
     @NotNull
     private boolean inside=true;
