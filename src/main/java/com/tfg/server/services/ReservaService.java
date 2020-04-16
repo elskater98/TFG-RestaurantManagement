@@ -37,9 +37,8 @@ public class ReservaService {
     }
 
     @Transactional
-    public String generateSubId(Date date_r){
-        String date = date_r.toInstant().toString();
-        String [] parts = date.split("T");
+    public String generateSubId(Date date){
+        String [] parts = generateSubDate(date);
         int hour = Integer.parseInt(parts[1].substring(0,2));
 
         if(hour >=start_lunch && hour<=end_lunch){
@@ -48,5 +47,10 @@ public class ReservaService {
             return parts[0]+" Diner";
         }
         return "";
+    }
+
+    @Transactional
+    public String [] generateSubDate(Date date){
+        return date.toInstant().toString().split("T");
     }
 }
