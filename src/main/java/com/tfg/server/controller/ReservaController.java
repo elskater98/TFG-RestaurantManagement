@@ -21,19 +21,19 @@ public class ReservaController {
 
     @RequestMapping(value = "/getByDate", method = GET)
     @ResponseBody
-    public List<Reserva> getByDate(@RequestBody Date date){
+    public List<Reserva> getByDate(@RequestBody String date){
         return reservaService.findByDate(date);
     }
 
     @RequestMapping(value = "/getReservaInseteByDate", method = GET)
     @ResponseBody
-    public List<Reserva> getByDateAndInsite(@RequestBody Date date){
+    public List<Reserva> getByDateAndInsite(@RequestBody String date){
         return reservaService.findByDateAndInside(date,true);
     }
 
     @RequestMapping(value = "/getReservaOutsiteByDate", method = GET)
     @ResponseBody
-    public List<Reserva> getByDateAndOutsite(@RequestBody Date date){
+    public List<Reserva> getByDateAndOutsite(@RequestBody String date){
         return reservaService.findByDateAndInside(date,false);
     }
 }

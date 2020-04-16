@@ -28,13 +28,13 @@ public class ReservaService {
     ReservaRepository reservaRepository;
 
     @Transactional
-    public List<Reserva> findByDate(Date date){
-        return reservaRepository.findByDate(date);
+    public List<Reserva> findByDate(String date){
+        return reservaRepository.findByDateString(date);
     }
 
     @Transactional
-    public List<Reserva> findByDateAndInside(Date date,Boolean bool){
-        return reservaRepository.findByDateAndInside(date,bool);
+    public List<Reserva> findByDateAndInside(String date,Boolean bool){
+        return reservaRepository.findByDateStringAndInside(date,bool);
     }
 
     @Transactional

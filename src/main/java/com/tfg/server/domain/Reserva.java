@@ -42,6 +42,9 @@ public class Reserva {
     private Date date;
 
     @NotNull
+    private String dateString;
+
+    @NotNull
     private String hour;
 
     @NotNull

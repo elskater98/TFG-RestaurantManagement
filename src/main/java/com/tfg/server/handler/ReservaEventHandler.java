@@ -56,7 +56,7 @@ public class ReservaEventHandler {
         }else if(!reserva.getInside() && count+reserva.getPeople()>outsite)  {
                 throw new BadRequestException();
         }
-
+        reserva.setDateString(reservaService.generateSubDate(reserva.getDate()));
         reserva.setSubId(subId);
 
 
@@ -84,7 +84,8 @@ public class ReservaEventHandler {
         }else if(!reserva.getInside() && count + reserva.getPeople()>outsite)  {
             throw new BadRequestException();
         }
-
+        
+        reserva.setDateString(reservaService.generateSubDate(reserva.getDate()));
         reserva.setSubId(subId);
 
         logger.info("Before saving: {}",reserva.toString());
