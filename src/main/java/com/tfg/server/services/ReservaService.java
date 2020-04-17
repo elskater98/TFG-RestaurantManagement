@@ -54,7 +54,7 @@ public class ReservaService {
 
     @Transactional
     public String generateSubDate(Date date){
-        SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(date);
     }
 }

@@ -38,13 +38,14 @@ public class Reserva {
     private String subId;
 
     @NotNull
-    @JsonFormat(pattern="mm/dd/yyyy")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
 
     @NotNull
     private String dateString;
 
     @NotNull
+    @Length(min=5,max = 5)
     private String hour;
 
     @NotNull
