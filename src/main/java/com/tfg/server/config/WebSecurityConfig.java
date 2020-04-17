@@ -44,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(HttpMethod.GET, "/getUsersByRole").permitAll()
                 .antMatchers(HttpMethod.GET, "/getByDate").permitAll()
+                .antMatchers(HttpMethod.GET, "/countReservas").permitAll()
                 .antMatchers(HttpMethod.GET, "/getReservaInseteByDate").permitAll()
                 .antMatchers(HttpMethod.GET, "/getReservaOutsiteByDate").permitAll()
                 .antMatchers(HttpMethod.GET, "/getAllRoles").permitAll()
