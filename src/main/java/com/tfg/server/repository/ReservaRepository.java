@@ -15,6 +15,4 @@ public interface ReservaRepository extends PagingAndSortingRepository<Reserva, U
 
     Optional<Reserva> findById(UUID id);
 
-    Integer countBySubIdAndInside(String subId,Boolean bool);
-
 }

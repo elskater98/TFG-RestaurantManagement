@@ -38,18 +38,6 @@ public class ReservaController {
         return reservaService.findByDateAndInside(date,false);
     }
 
-    @RequestMapping(value = "/countReservasInside", method = POST)
-    @ResponseBody
-    public Integer countReservasInsite (@RequestBody String subId){
-        return reservaService.countReservasInsite(subId,true);
-    }
-
-    @RequestMapping(value = "/countReservasOutside", method = POST)
-    @ResponseBody
-    public Integer countReservasOutsite (@RequestBody String subId){
-        return reservaService.countReservasInsite(subId,false);
-    }
-
     @RequestMapping(value = "/findBySubIdAndInside",method = POST)
     @ResponseBody
     public List<Reserva> findBySubIdAndInside(@RequestBody String subId){

@@ -63,8 +63,4 @@ public class ReservaService {
         return sdf.format(date);
     }
 
-    @Transactional
-    public Integer countReservasInsite(String subId,Boolean bool){
-        return reservaRepository.countBySubIdAndInside(subId,bool);
-    }
 }
