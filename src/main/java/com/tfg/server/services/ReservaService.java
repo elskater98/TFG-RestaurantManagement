@@ -64,7 +64,7 @@ public class ReservaService {
     }
 
     @Transactional
-    public Integer countBySubId(String subId){
-        return reservaRepository.countBySubId(subId);
+    public Integer countReservasInsite(String subId,Boolean bool){
+        return reservaRepository.countBySubIdAndInside(subId,bool);
     }
 }

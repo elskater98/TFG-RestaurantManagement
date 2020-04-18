@@ -45,11 +45,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/getUsersByRole").permitAll()
                 .antMatchers(HttpMethod.GET, "/getAllRoles").permitAll()
 
-                .antMatchers(HttpMethod.GET, "/getByDate").permitAll()
-                .antMatchers(HttpMethod.GET, "/countReservas").permitAll()
-                .antMatchers(HttpMethod.GET, "/getReservaInseteByDate").permitAll()
-                .antMatchers(HttpMethod.GET, "/getReservaOutsiteByDate").permitAll()
-                .antMatchers(HttpMethod.GET, "/findBySubIdAndInside").permitAll()
+                .antMatchers(HttpMethod.POST, "/getByDate").permitAll()
+                .antMatchers(HttpMethod.POST, "/countReservasInside").permitAll()
+                .antMatchers(HttpMethod.POST, "/countReservasOutside").permitAll()
+                .antMatchers(HttpMethod.POST, "/getReservaInseteByDate").permitAll()
+                .antMatchers(HttpMethod.POST, "/getReservaOutsiteByDate").permitAll()
+                .antMatchers(HttpMethod.POST, "/findBySubIdAndInside").permitAll()
+                .antMatchers(HttpMethod.POST, "/findBySubIdAndOutside").permitAll()
 
                 .anyRequest().permitAll()
                 .and()
