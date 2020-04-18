@@ -27,8 +27,8 @@ public class ReservaController {
 
     @RequestMapping(value = "/getReservaInseteByDate", method = GET)
     @ResponseBody
-    public List<Reserva> getByDateAndInsite(@RequestBody String date){
-        return reservaService.findByDateAndInside(date,true);
+    public List<Reserva> getByDateAndInsite(@RequestBody String subId){
+        return reservaService.findByDateAndInside(subId,true);
     }
 
     @RequestMapping(value = "/getReservaOutsiteByDate", method = GET)
@@ -36,4 +36,19 @@ public class ReservaController {
     public List<Reserva> getByDateAndOutsite(@RequestBody String date){
         return reservaService.findByDateAndInside(date,false);
     }
+
+    @RequestMapping(value = "/countReservas", method = GET)
+    @ResponseBody
+    public Integer countBySubId (@RequestBody String subId){
+        return reservaService.countBySubId(subId);
+    }
+
+    @RequestMapping(value = "/findBySubIdAndInside",method = GET)
+    @ResponseBody
+    public List<Reserva> findBySubIdAndInside(String subId, Boolean bool){
+        return  reservaService.findBySubIdAndInside(subId,bool);
+    }
+
+
+
 }

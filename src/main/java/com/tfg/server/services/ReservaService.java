@@ -38,6 +38,11 @@ public class ReservaService {
     }
 
     @Transactional
+    public List<Reserva> findBySubIdAndInside(String subId, Boolean bool){
+        return reservaRepository.findBySubIdAndInside(subId,bool);
+    }
+
+    @Transactional
     public String generateSubId(Date date,String hour){
         String parts_date = generateSubDate(date);
         String [] parts_hour = hour.split(":");
@@ -56,5 +61,10 @@ public class ReservaService {
     public String generateSubDate(Date date){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(date);
+    }
+
+    @Transactional
+    public Integer countBySubId(String subId){
+        return reservaRepository.countBySubId(subId);
     }
 }

@@ -11,8 +11,10 @@ public interface ReservaRepository extends PagingAndSortingRepository<Reserva, U
     List<Reserva> findByDateString(String date);
     List<Reserva> findByDateStringAndInside(String date,Boolean bool);
 
-    List<Reserva> findBySubIdAndInside(String str, Boolean bool);
+    List<Reserva> findBySubIdAndInside(String subId, Boolean bool);
 
     Optional<Reserva> findById(UUID id);
+
+    Integer countBySubId(String subId);
 
 }
