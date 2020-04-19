@@ -5,10 +5,13 @@ import lombok.Data;
 import org.hibernate.cfg.Environment;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -66,6 +69,28 @@ public class Reserva {
 
     public UUID getId() {
         return this.id;
+    }
+
+    @Transactional
+    public String generateSubId(Date date,String hour){
+
+        String parts_date = generateSubDate(date);
+        String [] parts_hour = hour.split(":");
+
+        int subHour = Integer.parseInt(parts_hour[0]);
+
+        if(subHour >=12 && subHour<=15){
+            return parts_date+" Lunch";
+        }else if(subHour>=20 && subHour<=23){
+            return parts_date+" Diner";
+        }
+        return "";
+    }
+
+    @Transactional
+    public String generateSubDate(Date date){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date);
     }
 
 }

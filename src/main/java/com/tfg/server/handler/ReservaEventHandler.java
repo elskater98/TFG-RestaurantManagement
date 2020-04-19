@@ -28,19 +28,16 @@ public class ReservaEventHandler {
 
     int count;
 
-    HashMap<String, ArrayList<Reserva>> totalAforament = new HashMap<String, ArrayList<Reserva>>();
-
     @Autowired
     ReservaRepository reservaRepository;
 
     @Autowired
     ReservaService reservaService;
-
     final Logger logger = LoggerFactory.getLogger(Reserva.class);
 
     @HandleBeforeCreate
     public void handleReservaPreCreate(Reserva reserva) throws BasicException {
-        String subId = reservaService.generateSubId(reserva.getDate(),reserva.getHour());
+        String subId = reserva.generateSubId(reserva.getDate(),reserva.getHour());
 
         if(!subId.contains("Diner") && !subId.contains("Lunch")){
             throw new BasicException("The date is not allowed.");
@@ -52,20 +49,20 @@ public class ReservaEventHandler {
         }
 
         if(reserva.getInside() && count+reserva.getPeople()>inside){
-                throw new BadRequestException();
+            throw new BadRequestException();
         }else if(!reserva.getInside() && count+reserva.getPeople()>outsite)  {
-                throw new BadRequestException();
+            throw new BadRequestException();
         }
-        reserva.setDateString(reservaService.generateSubDate(reserva.getDate()));
-        reserva.setSubId(subId);
 
+        reserva.setSubId(subId);
+        reserva.setDateString(reserva.generateSubDate(reserva.getDate()));
 
         logger.info("Before creating: {}", reserva.toString());
     }
 
     @HandleBeforeSave
     public void handleReservaPreSave( Reserva reserva) throws BasicException {
-        String subId = reservaService.generateSubId(reserva.getDate(),reserva.getHour());
+        String subId = reserva.generateSubId(reserva.getDate(),reserva.getHour());
 
         if(!subId.contains("Diner") && !subId.contains("Lunch")){
             throw new BasicException("The date is not allowed.");
@@ -84,9 +81,9 @@ public class ReservaEventHandler {
         }else if(!reserva.getInside() && count + reserva.getPeople()>outsite)  {
             throw new BadRequestException();
         }
-        
-        reserva.setDateString(reservaService.generateSubDate(reserva.getDate()));
+
         reserva.setSubId(subId);
+        reserva.setDateString(reserva.generateSubDate(reserva.getDate()));
 
         logger.info("Before saving: {}",reserva.toString());
     }
