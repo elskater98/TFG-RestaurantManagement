@@ -49,9 +49,9 @@ public class ReservaEventHandler {
         }
 
         if(reserva.getInside() && count+reserva.getPeople()>inside){
-            throw new BadRequestException();
+            throw new BasicException("Inside Sold Out");
         }else if(!reserva.getInside() && count+reserva.getPeople()>outsite)  {
-            throw new BadRequestException();
+            throw new BasicException("Outside Sold Out");
         }
 
         reserva.setSubId(subId);
