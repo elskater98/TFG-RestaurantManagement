@@ -1,14 +1,18 @@
 package com.tfg.server.config;
 
 
+import com.tfg.server.domain.Menjar;
+import com.tfg.server.domain.Producte;
 import com.tfg.server.domain.User;
-import com.tfg.server.repository.UserRepository;
+import com.tfg.server.repository.*;
 import com.tfg.server.services.BasicUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
+
+import java.util.ArrayList;
 
 @Configuration
 public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter {
@@ -19,6 +23,8 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
   @Autowired
   BasicUserDetailsService basicUserDetailsService;
   @Autowired UserRepository userRepository;
+  @Autowired ProducteRepository producteRepository;
+  @Autowired MenjarRepository menjarRepository;
 
   @Override
   public void init(AuthenticationManagerBuilder auth) throws Exception {

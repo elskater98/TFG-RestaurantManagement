@@ -39,6 +39,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PATCH,"/reservas/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER")
                 .antMatchers(HttpMethod.DELETE,"/reservas/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER")
 
+                .antMatchers(HttpMethod.GET,"/productes").permitAll()
+                .antMatchers(HttpMethod.GET,"/productes/*").permitAll()
+                .antMatchers(HttpMethod.POST,"/productes/*").permitAll()
+                .antMatchers(HttpMethod.PATCH,"/productes/*").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/productes/*").permitAll()
+
+                .antMatchers(HttpMethod.GET,"/menjars").permitAll()
+                .antMatchers(HttpMethod.GET,"/menjars/*").permitAll()
+                .antMatchers(HttpMethod.POST,"/menjars/*").permitAll()
+                .antMatchers(HttpMethod.PATCH,"/menjars/*").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/menjars/*").permitAll()
+
+                .antMatchers(HttpMethod.GET,"/encarrecs").permitAll()
+                .antMatchers(HttpMethod.GET,"/encarrecs/*").permitAll()
+                .antMatchers(HttpMethod.POST,"/encarrecs/*").permitAll()
+                .antMatchers(HttpMethod.PATCH,"/encarrecs/*").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/encarrecs/*").permitAll()
+
+
                 .antMatchers(HttpMethod.GET, "/identity").authenticated()
                 .antMatchers(HttpMethod.POST, "/register").permitAll()
 
