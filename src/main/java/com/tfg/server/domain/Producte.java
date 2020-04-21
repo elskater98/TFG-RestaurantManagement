@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -24,4 +25,9 @@ public class Producte {
 
     @Length(max=512)
     String description;
+
+    @NotNull
+    Boolean active = true;
+
+
 }

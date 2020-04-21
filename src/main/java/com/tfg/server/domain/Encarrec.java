@@ -1,30 +1,24 @@
 package com.tfg.server.domain;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "Encarrec")
 @Data
-
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Encarrec {
 
     @Id
-    private UUID id= UUID.randomUUID();
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    Integer id;
 
-    @NotBlank
-    @Length(max = 64)
-    String client;
-
-    @OneToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     List<Menjar> menjar;
 
-
+    @NotNull
+    Integer quantity;
 
 }

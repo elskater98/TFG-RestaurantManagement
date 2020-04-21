@@ -2,40 +2,32 @@ package com.tfg.server.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.hibernate.cfg.Environment;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Reserva")
+@Table(name = "MenjarPerEncarrec")
 @Data
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Reserva {
-
-    public Reserva(){
-
-    }
+public class MenjarPerEncarrec {
 
     @Id
     private UUID id= UUID.randomUUID();
 
     @NotBlank
-    @Length(min = 1, max = 64, message = "Client length is outnumberd 64 characters.")
-    private String client;
-
-    @Range(min=1,max = 64)
-    @NotNull(message = "The number of people may not be empty.")
-    private Integer people;
+    @Length(max = 64)
+    String client;
 
     @NotNull(message = "The subId may not be empty.")
     private String subId;
@@ -52,11 +44,7 @@ public class Reserva {
     private String hour;
 
     @NotNull
-    private boolean inside=true;
-
-    public boolean getInside(){
-        return this.inside;
-    }
+    private boolean delivery=true;
 
     @Length(max = 32)
     String mobile;
@@ -66,6 +54,14 @@ public class Reserva {
 
     @Length(max = 512)
     String observations;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @NotNull
+    List<Encarrec> encarrecs;
+
+    public boolean getDelivery(){
+        return this.delivery;
+    }
 
     public UUID getId() {
         return this.id;
