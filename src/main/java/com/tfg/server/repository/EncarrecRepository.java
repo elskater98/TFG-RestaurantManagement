@@ -5,5 +5,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.UUID;
 
-public interface EncarrecRepository extends PagingAndSortingRepository<Encarrec, UUID> {
+public interface EncarrecRepository extends PagingAndSortingRepository<Encarrec, Integer> {
 }

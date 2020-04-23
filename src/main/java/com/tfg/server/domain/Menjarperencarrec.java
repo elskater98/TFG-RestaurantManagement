@@ -10,17 +10,16 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "MenjarPerEncarrec")
+@Table(name = "Menjarperencarrec")
 @Data
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class MenjarPerEncarrec {
+public class Menjarperencarrec {
 
     @Id
     private UUID id= UUID.randomUUID();
@@ -28,9 +27,6 @@ public class MenjarPerEncarrec {
     @NotBlank
     @Length(max = 64)
     String client;
-
-    @NotNull(message = "The subId may not be empty.")
-    private String subId;
 
     @NotNull
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -44,16 +40,13 @@ public class MenjarPerEncarrec {
     private String hour;
 
     @NotNull
-    private boolean delivery=true;
+    private Boolean delivery=true;
 
     @Length(max = 32)
     String mobile;
 
     @Email
     String email;
-
-    @Length(max = 512)
-    String observations;
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @NotNull
@@ -65,22 +58,6 @@ public class MenjarPerEncarrec {
 
     public UUID getId() {
         return this.id;
-    }
-
-    @Transactional
-    public String generateSubId(Date date,String hour){
-
-        String parts_date = generateSubDate(date);
-        String [] parts_hour = hour.split(":");
-
-        int subHour = Integer.parseInt(parts_hour[0]);
-
-        if(subHour >=12 && subHour<=15){
-            return parts_date+" Lunch";
-        }else if(subHour>=20 && subHour<=23){
-            return parts_date+" Diner";
-        }
-        return "";
     }
 
     @Transactional

@@ -1,6 +1,7 @@
 package com.tfg.server.domain;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,5 +21,8 @@ public class Encarrec {
 
     @NotNull
     Integer quantity;
+
+    @Length(max = 512)
+    String observations;
 
 }

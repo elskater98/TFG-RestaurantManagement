@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
 @Data
 public class Producte {
     public Producte(){
-
     }
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     Integer id;
