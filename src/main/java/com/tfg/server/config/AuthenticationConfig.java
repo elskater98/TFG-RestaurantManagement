@@ -6,7 +6,6 @@ import com.tfg.server.domain.Producte;
 import com.tfg.server.domain.User;
 import com.tfg.server.repository.*;
 import com.tfg.server.services.BasicUserDetailsService;
-import com.tfg.server.util.Hardcode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
