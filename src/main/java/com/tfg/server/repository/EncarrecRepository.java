@@ -1,9 +1,11 @@
 package com.tfg.server.repository;
 
 import com.tfg.server.domain.Encarrec;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import java.util.UUID;
 
-public interface EncarrecRepository extends PagingAndSortingRepository<Encarrec, Integer> {
+
+@RepositoryRestResource(excerptProjection = Encarrec.class)
+public interface EncarrecRepository extends CrudRepository<Encarrec, Integer> {
 }

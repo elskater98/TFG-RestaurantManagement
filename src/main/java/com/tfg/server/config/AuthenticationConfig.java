@@ -6,6 +6,7 @@ import com.tfg.server.domain.Producte;
 import com.tfg.server.domain.User;
 import com.tfg.server.repository.*;
 import com.tfg.server.services.BasicUserDetailsService;
+import com.tfg.server.util.Hardcode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter {
@@ -25,6 +27,7 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
   @Autowired UserRepository userRepository;
   @Autowired ProducteRepository producteRepository;
   @Autowired MenjarRepository menjarRepository;
+
 
   @Override
   public void init(AuthenticationManagerBuilder auth) throws Exception {
@@ -44,5 +47,31 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
       user.setSurname("Admin");
       userRepository.save(user);
     }
+
+    //HardCode Productes i menjars
+    for(int i=0; i<5;i++){
+      Producte producte = new Producte();
+      producte.setName("Producte "+i);
+
+      producteRepository.save(producte);
+    }
+
+    Menjar menjar = new Menjar();
+    menjar.setName("Macarrons");
+    ArrayList<Producte> productes = new ArrayList<>();
+
+    Producte formatge= new Producte();
+    formatge.setName("Formatge");
+
+    Producte macarrons= new Producte();
+    macarrons.setName("Macarrons");
+
+    productes.add(formatge);
+    productes.add(macarrons);
+
+    menjar.setIngredients(productes);
+    menjarRepository.save(menjar);
+
+
   }
 }
