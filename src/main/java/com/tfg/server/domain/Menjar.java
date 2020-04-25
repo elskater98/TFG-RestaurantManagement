@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 import java.util.*;
@@ -23,6 +24,9 @@ public class Menjar {
     @NotBlank
     @Length(max = 64)
     private String name;
+
+    @NotNull
+    private Boolean enable=true;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Producte> ingredients;

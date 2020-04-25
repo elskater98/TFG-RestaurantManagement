@@ -20,12 +20,12 @@ public class Encarrec {
     @Id
     private UUID id= UUID.randomUUID();
 
-    // TO DO: @NotNull
+    // TO DO: @NotNull Possiblement no fagi falta
     private String clientUUID;
 
     @NotBlank
     @Length(max = 64)
-    String client;
+    private String client;
 
     @NotNull
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -42,18 +42,21 @@ public class Encarrec {
     private Boolean delivery=true;
 
     @Length(max = 32)
-    String mobile;
+    private String mobile;
 
     @Email
-    String email;
+    private String email;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @NotNull
-    List<Menjar> menjars;
+    private List<Menjar> menjars;
 
     // Format: Quantitymenjar1;Quantitymenjar2;
     @NotNull
-    String quantity;
+    private String quantity;
+
+    @Length(max = 512)
+    private String observations;
 
     public boolean getDelivery(){
         return this.delivery;
@@ -68,8 +71,5 @@ public class Encarrec {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(date);
     }
-
-    @Length(max = 512)
-    String observations;
 
 }
