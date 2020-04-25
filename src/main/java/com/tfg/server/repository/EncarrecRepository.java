@@ -9,4 +9,6 @@ import java.util.UUID;
 
 @RepositoryRestResource(excerptProjection = Encarrec.class)
 public interface EncarrecRepository extends CrudRepository<Encarrec, UUID> {
+    Encarrec findByClientAndDateStringAndHour(String client,String date,String hour);
+    Encarrec findByClientUUID(String uuid);
 }

@@ -20,6 +20,9 @@ public class Encarrec {
     @Id
     private UUID id= UUID.randomUUID();
 
+    // TO DO: @NotNull
+    private String clientUUID;
+
     @NotBlank
     @Length(max = 64)
     String client;
