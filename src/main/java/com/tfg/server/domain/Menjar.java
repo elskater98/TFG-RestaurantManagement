@@ -20,7 +20,6 @@ public class Menjar {
     @GeneratedValue(strategy=GenerationType.AUTO)
     Integer id;
 
-
     @NotBlank
     @Length(max = 64)
     private String name;

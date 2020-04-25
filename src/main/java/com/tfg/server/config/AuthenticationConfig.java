@@ -56,7 +56,7 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
     }
 
     Menjar menjar = new Menjar();
-    menjar.setName("Macarrons");
+    menjar.setName("Macarrons amb formatge");
     ArrayList<Producte> productes = new ArrayList<>();
 
     Producte formatge= new Producte();

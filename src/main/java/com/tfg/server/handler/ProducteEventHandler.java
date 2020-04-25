@@ -1,10 +1,7 @@
 package com.tfg.server.handler;
 
-import com.tfg.server.domain.Menjarperencarrec;
 import com.tfg.server.domain.Producte;
-import com.tfg.server.domain.Reserva;
 import com.tfg.server.exception.BasicException;
-import com.tfg.server.repository.MenjarPerEncarrecRepository;
 import com.tfg.server.repository.ProducteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

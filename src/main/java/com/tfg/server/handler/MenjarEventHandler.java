@@ -19,7 +19,7 @@ public class MenjarEventHandler {
     @Autowired
     MenjarRepository menjarRepository;
 
-    final Logger logger = LoggerFactory.getLogger(Producte.class);
+    final Logger logger = LoggerFactory.getLogger(Menjar.class);
 
     @HandleBeforeCreate
     public void handleProductePreCreate(Menjar menjar) throws BasicException {

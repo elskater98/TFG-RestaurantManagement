@@ -56,14 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/encarrecs/*").permitAll()
                 .antMatchers(HttpMethod.PATCH,"/encarrecs/*").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/encarrecs/*").permitAll()
-
-                .antMatchers(HttpMethod.GET,"/menjarperencarrecs").permitAll()
-                .antMatchers(HttpMethod.GET,"/menjarperencarrecs/*").permitAll()
-                .antMatchers(HttpMethod.POST,"/menjarperencarrecs/*").permitAll()
-                .antMatchers(HttpMethod.PATCH,"/menjarperencarrecs/*").permitAll()
-                .antMatchers(HttpMethod.DELETE,"/menjarperencarrecs/*").permitAll()
-
-
+                
                 .antMatchers(HttpMethod.GET, "/identity").authenticated()
                 .antMatchers(HttpMethod.POST, "/register").permitAll()
 

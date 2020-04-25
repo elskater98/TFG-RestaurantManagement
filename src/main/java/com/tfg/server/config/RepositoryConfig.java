@@ -12,7 +12,6 @@ public class RepositoryConfig extends RepositoryRestConfigurerAdapter {
         config.exposeIdsFor(User.class);
         config.exposeIdsFor(Reserva.class);
         config.exposeIdsFor(Menjar.class);
-        config.exposeIdsFor(Menjarperencarrec.class);
         config.exposeIdsFor(Encarrec.class);
         config.exposeIdsFor(Producte.class);
     }
