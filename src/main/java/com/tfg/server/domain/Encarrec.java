@@ -21,7 +21,7 @@ public class Encarrec {
     private UUID id= UUID.randomUUID();
 
     // TO DO: @NotNull Possiblement no fagi falta
-    private String clientUUID;
+    // private String clientUUID;
 
     @NotBlank
     @Length(max = 64)
@@ -39,7 +39,7 @@ public class Encarrec {
     private String hour;
 
     @NotNull
-    private Boolean delivery=true;
+    private Boolean takeaway;
 
     @Length(max = 32)
     private String mobile;
@@ -55,11 +55,14 @@ public class Encarrec {
     @NotNull
     private String quantity;
 
+    @NotNull
+    private Boolean delivered=false;
+
     @Length(max = 512)
     private String observations;
 
     public boolean getDelivery(){
-        return this.delivery;
+        return this.takeaway;
     }
 
     public UUID getId() {

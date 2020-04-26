@@ -34,7 +34,7 @@ public class Reserva {
     private String client;
 
     // TO DO: @NotNull
-    private String clientUUID;
+    //private String clientUUID;
 
     @Range(min=1,max = 64)
     @NotNull(message = "The number of people may not be empty.")
