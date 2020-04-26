@@ -55,8 +55,9 @@ public class Encarrec {
     @NotNull
     private String quantity;
 
+
     @NotNull
-    private Boolean delivered=false;
+    private String employee;
 
     @Length(max = 512)
     private String observations;
