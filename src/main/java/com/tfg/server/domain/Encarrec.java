@@ -51,6 +51,9 @@ public class Encarrec {
     @NotNull
     private List<Menjar> menjars;
 
+    @NotNull
+    Boolean status=false;
+
     // Format: Quantitymenjar1;Quantitymenjar2;
     @NotNull
     private String quantity;
@@ -62,7 +65,7 @@ public class Encarrec {
     @Length(max = 512)
     private String observations;
 
-    public boolean getDelivery(){
+    public boolean getTakeway(){
         return this.takeaway;
     }
 

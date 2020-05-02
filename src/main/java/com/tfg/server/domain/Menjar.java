@@ -25,6 +25,12 @@ public class Menjar {
     @Length(max = 64)
     private String name;
 
+    @NotBlank
+    private String type = "Unknown";
+
+    @Length(max = 512)
+    private String description;
+
     @NotNull
     private Boolean enable=true;
 
