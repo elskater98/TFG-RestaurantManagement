@@ -8,6 +8,7 @@ import com.tfg.server.repository.ProducteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.core.annotation.HandleAfterSave;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
@@ -24,19 +25,11 @@ public class MenjarEventHandler {
     @HandleBeforeCreate
     public void handleProductePreCreate(Menjar menjar) throws BasicException {
         if(menjarRepository.findByName(menjar.getName())!=null) {
-            throw new BasicException("Product " + menjar.getName() + " already exists.");
+            throw new BasicException("Menjar " + menjar.getName() + " already exists.");
         }
 
 
         logger.info("Before creating: {}", menjar.toString());
     }
 
-    @HandleBeforeSave
-    public void handleProductePreSave(Menjar menjar) throws BasicException {
-        if(menjarRepository.findByName(menjar.getName())!=null) {
-            throw new BasicException("Product " + menjar.getName() + " already exists.");
-        }
-
-        logger.info("Before save: {}", menjar.toString());
-    }
 }

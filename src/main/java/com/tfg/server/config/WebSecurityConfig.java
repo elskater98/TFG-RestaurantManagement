@@ -46,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/productes/*").permitAll()
 
                 .antMatchers(HttpMethod.GET,"/menjars").permitAll()
+                .antMatchers(HttpMethod.GET,"/getMenjars").permitAll()
                 .antMatchers(HttpMethod.GET,"/menjars/*").permitAll()
                 .antMatchers(HttpMethod.POST,"/menjars/*").permitAll()
                 .antMatchers(HttpMethod.PATCH,"/menjars/*").permitAll()

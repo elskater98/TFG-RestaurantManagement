@@ -30,13 +30,4 @@ public class ProducteEventHandler {
         logger.info("Before creating: {}", producte.toString());
     }
 
-    @HandleBeforeSave
-    public void handleProductePreSave(Producte producte) throws BasicException {
-        if(producteRepository.findByName(producte.getName())!=null) {
-            throw new BasicException("Product " + producte.getName() + " already exists.");
-        }
-
-
-        logger.info("Before save: {}", producte.toString());
-    }
 }

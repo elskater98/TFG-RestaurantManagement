@@ -29,5 +29,7 @@ public class Producte {
     @NotNull
     Boolean active = true;
 
-
+    public Boolean getActive() {
+        return active;
+    }
 }
