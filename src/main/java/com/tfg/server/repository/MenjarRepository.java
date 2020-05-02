@@ -6,7 +6,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.util.ArrayList;
+
 @RepositoryRestResource(excerptProjection = Menjar.class)
 public interface MenjarRepository extends CrudRepository<Menjar, Integer> {
     Menjar findByName(String str);
+    ArrayList<Menjar> findAllByOrderByNameAsc();
 }

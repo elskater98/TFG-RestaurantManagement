@@ -40,6 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/reservas/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER")
 
                 .antMatchers(HttpMethod.GET,"/productes").permitAll()
+                .antMatchers(HttpMethod.GET,"/getProducts").permitAll()
                 .antMatchers(HttpMethod.GET,"/productes/*").permitAll()
                 .antMatchers(HttpMethod.POST,"/productes/*").permitAll()
                 .antMatchers(HttpMethod.PATCH,"/productes/*").permitAll()

@@ -47,14 +47,6 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
       userRepository.save(user);
     }
 
-    //HardCode Productes i menjars
-    for(int i=0; i<5;i++){
-      Producte producte = new Producte();
-      producte.setName("Producte "+i);
-
-      producteRepository.save(producte);
-    }
-
     Menjar menjar = new Menjar();
     menjar.setName("Macarrons amb formatge");
     ArrayList<Producte> productes = new ArrayList<>();
