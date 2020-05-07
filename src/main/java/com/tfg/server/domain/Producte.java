@@ -29,6 +29,10 @@ public class Producte {
     @NotNull
     Boolean active = true;
 
+    @NotBlank
+    @Length(max=64)
+    String type="Unknown";
+
     public Boolean getActive() {
         return active;
     }

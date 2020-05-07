@@ -48,7 +48,6 @@ public class Encarrec {
     private String email;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @NotNull
     private List<Menjar> menjars;
 
     @NotNull
