@@ -29,6 +29,9 @@ public class Producte {
     @NotNull
     Boolean active = true;
 
+    @NotNull
+    Boolean blackList = false;
+
     @NotBlank
     @Length(max=64)
     String type="Unknown";

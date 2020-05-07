@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
 @BasePathAwareController
@@ -49,5 +50,17 @@ public class InventariController {
     @ResponseBody
     public ArrayList<Producte> getProductes(){
         return producteRepository.findAllByOrderByNameAsc();
+    }
+
+    @RequestMapping(value = "/getCart", method = GET)
+    @ResponseBody
+    public ArrayList<Producte> getToBuy(){
+        return producteRepository.findByActiveAndBlackListOrderByNameAsc(false,false);
+    }
+
+    @RequestMapping(value = "/getBlackList", method = GET)
+    @ResponseBody
+    public ArrayList<Producte> getBlackList(){
+        return producteRepository.findByActiveAndBlackListOrderByNameAsc(false,true);
     }
 }

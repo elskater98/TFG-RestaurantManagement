@@ -53,9 +53,11 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
 
     Producte formatge= new Producte();
     formatge.setName("Formatge");
+    formatge.setType("Food");
 
     Producte macarrons= new Producte();
     macarrons.setName("Macarrons");
+    macarrons.setType("Food");
 
     productes.add(formatge);
     productes.add(macarrons);
