@@ -13,5 +13,6 @@ public interface ProducteRepository extends CrudRepository<Producte, Integer> {
     Producte findByName(String name);
     ArrayList<Producte> findAllByOrderByNameAsc();
     ArrayList<Producte> findByActiveAndBlackListOrderByNameAsc(Boolean active, Boolean blackList);
+    ArrayList<Producte> findByBlackListOrderByName(Boolean blackList);
 
 }

@@ -6,6 +6,7 @@ import com.tfg.server.repository.MenjarRepository;
 import com.tfg.server.repository.ProducteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.BasePathAwareController;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -61,6 +62,12 @@ public class InventariController {
     @RequestMapping(value = "/getBlackList", method = GET)
     @ResponseBody
     public ArrayList<Producte> getBlackList(){
-        return producteRepository.findByActiveAndBlackListOrderByNameAsc(false,true);
+        return producteRepository.findByBlackListOrderByName(true);
+    }
+
+    @RequestMapping(value = "/getProductByName", method = POST)
+    @ResponseBody
+    public Producte getProductByName(@RequestBody String name){
+        return producteRepository.findByName(name);
     }
 }
