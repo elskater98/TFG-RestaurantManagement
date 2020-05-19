@@ -28,46 +28,56 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/users").permitAll()
-                .antMatchers(HttpMethod.GET, "/users/*").permitAll()
+                // Employees
+                .antMatchers(HttpMethod.GET, "/users").hasAnyRole("ADMIN","PROPIETARI")
+                .antMatchers(HttpMethod.GET, "/users/*").hasAnyRole("ADMIN","PROPIETARI")
                 .antMatchers(HttpMethod.PATCH, "/users/*").hasAnyRole("ADMIN","PROPIETARI")
                 .antMatchers(HttpMethod.DELETE, "/users/*").hasAnyRole("ADMIN","PROPIETARI")
 
+                // Reserve
                 .antMatchers(HttpMethod.GET,"/reservas").permitAll()
                 .antMatchers(HttpMethod.GET,"/reservas/*").permitAll()
                 .antMatchers(HttpMethod.POST,"/reservas/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER")
                 .antMatchers(HttpMethod.PATCH,"/reservas/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER")
                 .antMatchers(HttpMethod.DELETE,"/reservas/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER")
 
-                .antMatchers(HttpMethod.GET,"/productes").permitAll()
-                .antMatchers(HttpMethod.GET,"/getProducts").permitAll()
-                .antMatchers(HttpMethod.GET,"/getCart").permitAll()
-                .antMatchers(HttpMethod.GET,"/getBlackList").permitAll()
-                .antMatchers(HttpMethod.POST,"/getProductByName").permitAll()
-                .antMatchers(HttpMethod.GET,"/productes/*").permitAll()
-                .antMatchers(HttpMethod.POST,"/productes/*").hasAnyRole("ADMIN","PROPIETARI")
-                .antMatchers(HttpMethod.PATCH,"/productes/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER","CUINER")
-                .antMatchers(HttpMethod.DELETE,"/productes/*").hasAnyRole("ADMIN","PROPIETARI")
-
-                .antMatchers(HttpMethod.GET,"/menjars").permitAll()
-                .antMatchers(HttpMethod.GET,"/getMenjars").permitAll()
-                .antMatchers(HttpMethod.GET,"/menjars/*").permitAll()
-                .antMatchers(HttpMethod.POST,"/menjars/*").hasAnyRole("ADMIN","PROPIETARI","CUINER")
-                .antMatchers(HttpMethod.PATCH,"/menjars/*").hasAnyRole("ADMIN","PROPIETARI","CUINER")
-                .antMatchers(HttpMethod.DELETE,"/menjars/*").hasAnyRole("ADMIN","PROPIETARI")
-
+                // Order
                 .antMatchers(HttpMethod.GET,"/encarrecs").permitAll()
                 .antMatchers(HttpMethod.GET,"/encarrecs/*").permitAll()
                 .antMatchers(HttpMethod.POST,"/encarrecs/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER")
                 .antMatchers(HttpMethod.PATCH,"/encarrecs/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER")
                 .antMatchers(HttpMethod.DELETE,"/encarrecs/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER")
-                
+
+
+                // Food
+                .antMatchers(HttpMethod.GET,"/menjars").permitAll()
+                .antMatchers(HttpMethod.GET,"/menjars/*").permitAll()
+                .antMatchers(HttpMethod.GET,"/getMenjars").permitAll()
+                .antMatchers(HttpMethod.POST,"/menjars/*").hasAnyRole("ADMIN","PROPIETARI","CUINER")
+                .antMatchers(HttpMethod.PATCH,"/menjars/*").hasAnyRole("ADMIN","PROPIETARI","CUINER")
+                .antMatchers(HttpMethod.DELETE,"/menjars/*").hasAnyRole("ADMIN","PROPIETARI")
+
+                // Products
+                .antMatchers(HttpMethod.GET,"/productes").permitAll()
+                .antMatchers(HttpMethod.GET,"/productes/*").permitAll()
+                .antMatchers(HttpMethod.GET,"/getProducts").permitAll()
+                .antMatchers(HttpMethod.GET,"/getCart").permitAll()
+                .antMatchers(HttpMethod.GET,"/getBlackList").permitAll()
+                .antMatchers(HttpMethod.POST,"/getProductByName").permitAll()
+                .antMatchers(HttpMethod.POST,"/productes/*").hasAnyRole("ADMIN","PROPIETARI")
+                .antMatchers(HttpMethod.PATCH,"/productes/*").hasAnyRole("ADMIN","PROPIETARI","CAMBRER","BARTENDER","CUINER")
+                .antMatchers(HttpMethod.DELETE,"/productes/*").hasAnyRole("ADMIN","PROPIETARI")
+
+
+                // Login and Sign Up
                 .antMatchers(HttpMethod.GET, "/identity").authenticated()
                 .antMatchers(HttpMethod.POST, "/register").hasAnyRole("ADMIN","PROPIETARI")
 
+                // Roles
                 .antMatchers(HttpMethod.GET, "/getUsersByRole").permitAll()
                 .antMatchers(HttpMethod.GET, "/getAllRoles").permitAll()
 
+                // Others
                 .antMatchers(HttpMethod.POST, "/getByDate").permitAll()
                 .antMatchers(HttpMethod.POST, "/getReservaInseteByDate").permitAll()
                 .antMatchers(HttpMethod.POST, "/getReservaOutsiteByDate").permitAll()
