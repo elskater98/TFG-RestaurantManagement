@@ -46,25 +46,5 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
       user.setSurname("Admin");
       userRepository.save(user);
     }
-
-    Menjar menjar = new Menjar();
-    menjar.setName("Macarrons amb formatge");
-    ArrayList<Producte> productes = new ArrayList<>();
-
-    Producte formatge= new Producte();
-    formatge.setName("Formatge");
-    formatge.setType("Food");
-
-    Producte macarrons= new Producte();
-    macarrons.setName("Macarrons");
-    macarrons.setType("Food");
-
-    productes.add(formatge);
-    productes.add(macarrons);
-
-    menjar.setIngredients(productes);
-    menjarRepository.save(menjar);
-
-
   }
 }
